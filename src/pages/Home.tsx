@@ -1,9 +1,10 @@
-import { useCallback } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { SiGoogle } from "react-icons/si";
-
+import { database } from "../services/firebase";
 import { useAuth } from "../hooks/useAuth";
+
+import { SiGoogle } from "react-icons/si";
 
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
@@ -15,6 +16,7 @@ import "../styles/auth.scss";
 const Home = () => {
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
+  const [roomCode, setRoomCode] = useState("");
 
   const handleCreateRoom = useCallback(async () => {
     if (!user) {
@@ -23,6 +25,26 @@ const Home = () => {
 
     history.push("/rooms/new");
   }, [history, user, signInWithGoogle]);
+
+  const handleJoinRoom = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+
+      if (roomCode.trim() === "") {
+        return;
+      }
+
+      const roomRef = await database.ref(`rooms/${roomCode}`).get();
+
+      if (!roomRef.exists()) {
+        alert("Room does not exists.");
+        return;
+      }
+
+      history.push(`rooms/${roomCode}`);
+    },
+    [roomCode, history]
+  );
 
   return (
     <div id="page-auth">
@@ -42,8 +64,13 @@ const Home = () => {
             Crie sua sala com o google
           </button>
           <div className="separator">ou entre em uma sala</div>
-          <form>
-            <input type="text" placeholder="Digite o código da sala" />
+          <form onSubmit={handleJoinRoom}>
+            <input
+              type="text"
+              placeholder="Digite o código da sala"
+              value={roomCode}
+              onChange={(e) => setRoomCode(e.target.value)}
+            />
             <Button type="submit">Entrar na sala</Button>
           </form>
         </div>
