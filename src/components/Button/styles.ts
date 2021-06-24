@@ -1,4 +1,6 @@
-.button {
+import styled from "styled-components";
+
+export const ButtonContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,4 +26,4 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
-}
+`;

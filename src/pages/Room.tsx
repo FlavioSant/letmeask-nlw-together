@@ -8,7 +8,13 @@ import { RoomCode } from "../components/RoomCode";
 import { useAuth } from "../hooks/useAuth";
 import { database } from "../services/firebase";
 
-import "../styles/room.scss";
+import {
+  Container,
+  FormFooter,
+  Header,
+  RoomTitle,
+  UserInfo,
+} from "../styles/room";
 
 type FirebaseQuestions = Record<
   string,
@@ -100,19 +106,19 @@ const Room: React.FC = () => {
   );
 
   return (
-    <div id="page-room">
-      <header>
-        <div className="content">
+    <Container>
+      <Header>
+        <div>
           <img src={logoImg} alt="Letmeask" />
           <RoomCode code={roomId} />
         </div>
-      </header>
+      </Header>
 
       <main>
-        <div className="room-title">
+        <RoomTitle>
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-        </div>
+        </RoomTitle>
 
         <form onSubmit={handleSendQuestion}>
           <textarea
@@ -120,12 +126,12 @@ const Room: React.FC = () => {
             value={newQuestion}
             onChange={(e) => setNewQuestion(e.target.value)}
           />
-          <div className="form-footer">
+          <FormFooter>
             {user ? (
-              <div className="user-info">
+              <UserInfo>
                 <img src={user.avatar} alt={user.name} />
                 <span>{user.name}</span>
-              </div>
+              </UserInfo>
             ) : (
               <span>
                 Para enviar uma pergunta,{" "}
@@ -135,12 +141,12 @@ const Room: React.FC = () => {
             <Button type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
-          </div>
+          </FormFooter>
         </form>
 
         {JSON.stringify(questions)}
       </main>
-    </div>
+    </Container>
   );
 };
 

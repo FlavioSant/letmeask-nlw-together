@@ -9,7 +9,7 @@ import logoImg from "../assets/images/logo.svg";
 
 import { Button } from "../components/Button";
 
-import "../styles/auth.scss";
+import { Container, MainContent } from "../styles/auth";
 
 const NewRoom: React.FC = () => {
   const history = useHistory();
@@ -38,7 +38,7 @@ const NewRoom: React.FC = () => {
   );
 
   return (
-    <div id="page-auth">
+    <Container>
       <aside>
         <img
           src={illustrationImg}
@@ -48,7 +48,7 @@ const NewRoom: React.FC = () => {
         <p>Tire as dúvidas da sua audiência em tempo real</p>
       </aside>
       <main>
-        <div className="main-content">
+        <MainContent>
           <img src={logoImg} alt="Letmeask" />
           <h2>Criar uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
@@ -63,9 +63,9 @@ const NewRoom: React.FC = () => {
           <p>
             Quer entrar em uma sala existente? <Link to="/">clique aqui</Link>
           </p>
-        </div>
+        </MainContent>
       </main>
-    </div>
+    </Container>
   );
 };
 

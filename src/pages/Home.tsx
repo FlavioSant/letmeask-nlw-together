@@ -11,7 +11,12 @@ import logoImg from "../assets/images/logo.svg";
 
 import { Button } from "../components/Button";
 
-import "../styles/auth.scss";
+import {
+  Container,
+  CreateRoomButton,
+  MainContent,
+  Separator,
+} from "../styles/auth";
 
 const Home = () => {
   const history = useHistory();
@@ -47,7 +52,7 @@ const Home = () => {
   );
 
   return (
-    <div id="page-auth">
+    <Container>
       <aside>
         <img
           src={illustrationImg}
@@ -57,13 +62,13 @@ const Home = () => {
         <p>Tire as dúvidas da sua audiência em tempo real</p>
       </aside>
       <main>
-        <div className="main-content">
+        <MainContent>
           <img src={logoImg} alt="Letmeask" />
-          <button className="create-room" onClick={handleCreateRoom}>
+          <CreateRoomButton onClick={handleCreateRoom}>
             <SiGoogle size={24} color="#fff" />
             Crie sua sala com o google
-          </button>
-          <div className="separator">ou entre em uma sala</div>
+          </CreateRoomButton>
+          <Separator>ou entre em uma sala</Separator>
           <form onSubmit={handleJoinRoom}>
             <input
               type="text"
@@ -73,9 +78,9 @@ const Home = () => {
             />
             <Button type="submit">Entrar na sala</Button>
           </form>
-        </div>
+        </MainContent>
       </main>
-    </div>
+    </Container>
   );
 };
 
