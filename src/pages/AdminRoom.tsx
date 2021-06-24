@@ -1,15 +1,17 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import { database } from "../services/firebase";
 
+import { FiTrash, FiXCircle } from "react-icons/fi";
 import logoImg from "../assets/images/logo.svg";
-import { FiTrash } from "react-icons/fi";
+
+import { useRoom } from "../hooks/useRoom";
 
 import { Button } from "../components/Button";
 import { Question } from "../components/Question";
 import { RoomCode } from "../components/RoomCode";
-import { useRoom } from "../hooks/useRoom";
+import Modal, { ModalHandles } from "../components/Modal";
 
 import { Container, Header, QuestionList, RoomTitle } from "../styles/room";
 
@@ -21,18 +23,26 @@ const AdminRoom: React.FC = () => {
   const history = useHistory();
   const { id: roomId } = useParams<RoomParams>();
   const { questions, title } = useRoom(roomId);
+  const modalRoomRef = useRef<ModalHandles>(null);
+  const modalQuestionRef = useRef<ModalHandles>(null);
 
   const handleEndRoom = useCallback(async () => {
-    database.ref(`rooms/${roomId}`).update({
-      endedAt: new Date(),
-    });
+    const isConfirmed = await modalRoomRef.current?.openModal();
 
-    history.push("/");
+    if (isConfirmed) {
+      database.ref(`rooms/${roomId}`).update({
+        endedAt: new Date(),
+      });
+
+      history.push("/");
+    }
   }, [roomId, history]);
 
   const handleDeleteQuestion = useCallback(
     async (questionId: string) => {
-      if (window.confirm("Tem certeza que deseja excluir esta pergunta?")) {
+      const isConfirmed = await modalQuestionRef.current?.openModal();
+
+      if (isConfirmed) {
         await database.ref(`/rooms/${roomId}/questions/${questionId}`).remove();
       }
     },
@@ -40,44 +50,62 @@ const AdminRoom: React.FC = () => {
   );
 
   return (
-    <Container>
-      <Header>
-        <div>
-          <img src={logoImg} alt="Letmeask" />
+    <>
+      <Modal
+        ref={modalRoomRef}
+        title="Encerrar sala"
+        description="Tem certeza que você deseja encerrar esta sala?"
+        confirmMessage="Encerrar"
+        icon={FiXCircle}
+      />
+      <Modal
+        ref={modalQuestionRef}
+        title="Excluir pergunta"
+        description="Tem certeza que você deseja excluir esta pergunta?"
+        confirmMessage="Excluir"
+        icon={FiTrash}
+      />
+      <Container>
+        <Header>
           <div>
-            <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>
-              Encerar Sala
-            </Button>
+            <img src={logoImg} alt="Letmeask" />
+            <div>
+              <RoomCode code={roomId} />
+              <Button isOutlined onClick={handleEndRoom}>
+                Encerar Sala
+              </Button>
+            </div>
           </div>
-        </div>
-      </Header>
+        </Header>
 
-      <main>
-        <RoomTitle>
-          <h1>Sala {title}</h1>
-          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
-        </RoomTitle>
+        <main>
+          <RoomTitle>
+            <h1>Sala {title}</h1>
+            {questions.length > 0 && (
+              <span>{questions.length} pergunta(s)</span>
+            )}
+          </RoomTitle>
 
-        <QuestionList>
-          {questions.map((question) => (
-            <Question
-              key={question.id}
-              author={question.author}
-              content={question.content}
-              hasLiked={!!question.likeId}
-            >
-              <button
-                type="button"
-                onClick={() => handleDeleteQuestion(question.id)}
+          <QuestionList>
+            {questions.map((question) => (
+              <Question
+                key={question.id}
+                author={question.author}
+                content={question.content}
+                hasLiked={!!question.likeId}
               >
-                <FiTrash size={24} />
-              </button>
-            </Question>
-          ))}
-        </QuestionList>
-      </main>
-    </Container>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteQuestion(question.id)}
+                >
+                  <FiTrash size={24} />
+                </button>
+              </Question>
+            ))}
+          </QuestionList>
+        </main>
+      </Container>
+    </>
   );
 };
 
