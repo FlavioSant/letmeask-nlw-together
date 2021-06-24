@@ -24,7 +24,7 @@ export const Header = styled.header`
   padding: 24px;
   border-bottom: 1px solid #e2e2e2;
 
-  div {
+  & > div {
     max-width: 1120px;
     margin: 0 auto;
     display: flex;
@@ -33,6 +33,15 @@ export const Header = styled.header`
 
     & > img {
       max-height: 45px;
+    }
+
+    div {
+      display: flex;
+      gap: 16px;
+
+      button {
+        height: 40px;
+      }
     }
   }
 `;
@@ -98,4 +107,8 @@ export const UserInfo = styled.div`
     font-weight: 500;
     font-size: 14px;
   }
+`;
+
+export const QuestionList = styled.div`
+  margin-top: 32px;
 `;

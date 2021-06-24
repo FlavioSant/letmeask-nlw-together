@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const ButtonContainer = styled.button`
+interface ButtonContainerProps {
+  isOutlined: boolean;
+}
+
+export const ButtonContainer = styled.button<ButtonContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,4 +30,12 @@ export const ButtonContainer = styled.button`
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  ${({ isOutlined }) =>
+    isOutlined &&
+    css`
+      background: #fff;
+      border: 1px solid #835afd;
+      color: #835afd;
+    `}
 `;
