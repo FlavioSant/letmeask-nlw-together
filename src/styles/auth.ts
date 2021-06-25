@@ -90,6 +90,11 @@ export const MainContent = styled.div`
 
     a {
       color: #e559f9;
+      transition: filter 0.2s;
+
+      &:hover {
+        filter: brightness(0.9);
+      }
     }
   }
 `;

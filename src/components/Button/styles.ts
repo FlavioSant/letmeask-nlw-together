@@ -37,5 +37,12 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
       background: #fff;
       border: 1px solid #835afd;
       color: #835afd;
+      transition: color 0.2s;
+
+      &:not(:disabled):hover {
+        filter: none;
+        border-color: #6f4bd8;
+        color: #6f4bd8;
+      }
     `}
 `;

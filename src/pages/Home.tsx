@@ -5,6 +5,7 @@ import { database } from "../services/firebase";
 import { useAuth } from "../hooks/useAuth";
 
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
@@ -42,12 +43,22 @@ const Home = () => {
       const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
       if (!roomRef.exists()) {
-        alert("Room does not exists.");
+        toast.info("Esta sala não existe.", {
+          autoClose: 3000,
+          style: {
+            background: "#835afd",
+          },
+        });
         return;
       }
 
       if (roomRef.val().endedAt) {
-        alert("Room already closed.");
+        toast.info("Esta sala já foi fechada.", {
+          autoClose: 3000,
+          style: {
+            background: "#835afd",
+          },
+        });
         return;
       }
 
