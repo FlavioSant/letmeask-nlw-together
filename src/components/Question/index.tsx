@@ -1,4 +1,4 @@
-import { QuestionContainer, UserInfo } from "./styles";
+import { ButtonsContainer, QuestionContainer, UserInfo } from "./styles";
 
 interface QuestionProps {
   content: string;
@@ -6,24 +6,28 @@ interface QuestionProps {
     name: string;
     avatar: string;
   };
-  hasLiked: boolean;
+  hasLiked?: boolean;
+  isAnswered?: boolean;
+  isHighlighted?: boolean;
 }
 
 const Question: React.FC<QuestionProps> = ({
   author,
   content,
-  hasLiked,
+  hasLiked = false,
+  isAnswered = false,
+  isHighlighted = false,
   children,
 }) => {
   return (
-    <QuestionContainer hasLiked={hasLiked}>
+    <QuestionContainer isAnswered={isAnswered} isHighlighted={isHighlighted}>
       <p>{content}</p>
       <footer>
         <UserInfo>
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </UserInfo>
-        <div>{children}</div>
+        <ButtonsContainer hasLiked={hasLiked}>{children}</ButtonsContainer>
       </footer>
     </QuestionContainer>
   );

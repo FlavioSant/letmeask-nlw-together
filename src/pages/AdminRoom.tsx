@@ -3,7 +3,12 @@ import { useHistory, useParams } from "react-router-dom";
 
 import { database } from "../services/firebase";
 
-import { FiTrash, FiXCircle } from "react-icons/fi";
+import {
+  FiCheckCircle,
+  FiMessageSquare,
+  FiTrash,
+  FiXCircle,
+} from "react-icons/fi";
 import logoImg from "../assets/images/logo.svg";
 
 import { useRoom } from "../hooks/useRoom";
@@ -37,6 +42,24 @@ const AdminRoom: React.FC = () => {
       history.push("/");
     }
   }, [roomId, history]);
+
+  const handleCheckQuestionAsAnswered = useCallback(
+    async (questionId: string) => {
+      await database.ref(`/rooms/${roomId}/questions/${questionId}`).update({
+        isAnswered: true,
+      });
+    },
+    [roomId]
+  );
+
+  const handleHighlightQuestion = useCallback(
+    async (questionId: string) => {
+      await database.ref(`/rooms/${roomId}/questions/${questionId}`).update({
+        isHighlighted: true,
+      });
+    },
+    [roomId]
+  );
 
   const handleDeleteQuestion = useCallback(
     async (questionId: string) => {
@@ -92,10 +115,30 @@ const AdminRoom: React.FC = () => {
                 key={question.id}
                 author={question.author}
                 content={question.content}
-                hasLiked={!!question.likeId}
+                isAnswered={question.isAnswered}
+                isHighlighted={question.isHighlighted}
               >
+                {!question.isAnswered && (
+                  <>
+                    <button
+                      type="button"
+                      title="Marcar pergunta como respondida"
+                      onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                    >
+                      <FiCheckCircle size={24} />
+                    </button>
+                    <button
+                      type="button"
+                      title="Dar destaque à pergunta"
+                      onClick={() => handleHighlightQuestion(question.id)}
+                    >
+                      <FiMessageSquare size={24} />
+                    </button>
+                  </>
+                )}
                 <button
                   type="button"
+                  title="Remover pergunta"
                   onClick={() => handleDeleteQuestion(question.id)}
                 >
                   <FiTrash size={24} />

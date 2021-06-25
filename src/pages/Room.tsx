@@ -123,16 +123,22 @@ const Room: React.FC = () => {
               author={question.author}
               content={question.content}
               hasLiked={!!question.likeId}
+              isAnswered={question.isAnswered}
+              isHighlighted={question.isHighlighted}
             >
-              <button
-                type="button"
-                aria-label="Marcar como gostei"
-                className="like-button"
-                onClick={() => handleLikeQuestion(question.id, question.likeId)}
-              >
-                {question.likeCount > 0 && <span>{question.likeCount}</span>}
-                <FiThumbsUp size={24} />
-              </button>
+              {!question.isAnswered && (
+                <button
+                  type="button"
+                  aria-label="Marcar como gostei"
+                  className="like-button"
+                  onClick={() =>
+                    handleLikeQuestion(question.id, question.likeId)
+                  }
+                >
+                  {question.likeCount > 0 && <span>{question.likeCount}</span>}
+                  <FiThumbsUp size={24} />
+                </button>
+              )}
             </Question>
           ))}
         </QuestionList>

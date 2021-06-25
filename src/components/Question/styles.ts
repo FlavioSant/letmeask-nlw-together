@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components";
 
-interface QuestionProps {
+interface ButtonsProps {
   hasLiked: boolean;
+}
+
+interface QuestionProps {
+  isAnswered: boolean;
+  isHighlighted: boolean;
 }
 
 export const QuestionContainer = styled.div<QuestionProps>`
@@ -14,6 +19,24 @@ export const QuestionContainer = styled.div<QuestionProps>`
     margin-top: 8px;
   }
 
+  ${({ isHighlighted, isAnswered }) =>
+    isHighlighted &&
+    !isAnswered &&
+    css`
+      background: #f4f0ff;
+      border: 1px solid #835afd;
+
+      footer span {
+        color: #29292e;
+      }
+    `}
+
+  ${({ isAnswered }) =>
+    isAnswered &&
+    css`
+      background: #dbdcdd;
+    `}
+
   p {
     color: #29292e;
   }
@@ -23,30 +46,6 @@ export const QuestionContainer = styled.div<QuestionProps>`
     align-items: center;
     justify-content: space-between;
     margin-top: 24px;
-
-    button {
-      background: transparent;
-      border: 0;
-      cursor: pointer;
-      color: #737380;
-
-      &.like-button {
-        display: flex;
-        align-items: flex-end;
-        gap: 8px;
-        transition: filter 0.2s;
-
-        ${({ hasLiked }) =>
-          hasLiked &&
-          css`
-            color: #835afd;
-          `}
-      }
-
-      &:hover {
-        filter: brightness(0.7);
-      }
-    }
   }
 `;
 
@@ -64,5 +63,34 @@ export const UserInfo = styled.div`
     margin-left: 8px;
     color: #737380;
     font-size: 14px;
+  }
+`;
+
+export const ButtonsContainer = styled.div<ButtonsProps>`
+  display: flex;
+  gap: 16px;
+
+  button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #737380;
+
+    &:hover {
+      filter: brightness(0.7);
+    }
+
+    &.like-button {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      transition: filter 0.2s;
+
+      ${({ hasLiked }) =>
+        hasLiked &&
+        css`
+          color: #835afd;
+        `}
+    }
   }
 `;
