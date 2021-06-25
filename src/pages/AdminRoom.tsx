@@ -1,6 +1,7 @@
 import { useCallback, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
+import emptyQuestion from "../assets/images/empty-questions.svg";
 import { database } from "../services/firebase";
 
 import {
@@ -18,7 +19,13 @@ import { Question } from "../components/Question";
 import { RoomCode } from "../components/RoomCode";
 import Modal, { ModalHandles } from "../components/Modal";
 
-import { Container, Header, QuestionList, RoomTitle } from "../styles/room";
+import {
+  Container,
+  EmptyQuestion,
+  Header,
+  QuestionList,
+  RoomTitle,
+} from "../styles/room";
 
 interface RoomParams {
   id: string;
@@ -110,41 +117,55 @@ const AdminRoom: React.FC = () => {
           </RoomTitle>
 
           <QuestionList>
-            {questions.map((question) => (
-              <Question
-                key={question.id}
-                author={question.author}
-                content={question.content}
-                isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}
-              >
-                {!question.isAnswered && (
-                  <>
-                    <button
-                      type="button"
-                      title="Marcar pergunta como respondida"
-                      onClick={() => handleCheckQuestionAsAnswered(question.id)}
-                    >
-                      <FiCheckCircle size={24} />
-                    </button>
-                    <button
-                      type="button"
-                      title="Dar destaque à pergunta"
-                      onClick={() => handleHighlightQuestion(question.id)}
-                    >
-                      <FiMessageSquare size={24} />
-                    </button>
-                  </>
-                )}
-                <button
-                  type="button"
-                  title="Remover pergunta"
-                  onClick={() => handleDeleteQuestion(question.id)}
+            {questions.length > 0 ? (
+              questions.map((question) => (
+                <Question
+                  key={question.id}
+                  author={question.author}
+                  content={question.content}
+                  isAnswered={question.isAnswered}
+                  isHighlighted={question.isHighlighted}
                 >
-                  <FiTrash size={24} />
-                </button>
-              </Question>
-            ))}
+                  {!question.isAnswered && (
+                    <>
+                      <button
+                        type="button"
+                        title="Marcar pergunta como respondida"
+                        onClick={() =>
+                          handleCheckQuestionAsAnswered(question.id)
+                        }
+                      >
+                        <FiCheckCircle size={24} />
+                      </button>
+                      <button
+                        type="button"
+                        title="Dar destaque à pergunta"
+                        onClick={() => handleHighlightQuestion(question.id)}
+                      >
+                        <FiMessageSquare size={24} />
+                      </button>
+                    </>
+                  )}
+                  <button
+                    type="button"
+                    title="Remover pergunta"
+                    className="delete-button"
+                    onClick={() => handleDeleteQuestion(question.id)}
+                  >
+                    <FiTrash size={24} />
+                  </button>
+                </Question>
+              ))
+            ) : (
+              <EmptyQuestion>
+                <img src={emptyQuestion} alt="Nenhuma pergunta." />
+                <h2>Nenhuma pergunta por aqui...</h2>
+                <p>
+                  Faça o seu login e seja a primeira pessoa a fazer uma
+                  pergunta!
+                </p>
+              </EmptyQuestion>
+            )}
           </QuestionList>
         </main>
       </Container>

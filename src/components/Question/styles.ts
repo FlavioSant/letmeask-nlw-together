@@ -77,7 +77,7 @@ export const ButtonsContainer = styled.div<ButtonsProps>`
     color: #737380;
 
     &:hover {
-      filter: brightness(0.7);
+      color: #835afd;
     }
 
     &.like-button {
@@ -91,6 +91,10 @@ export const ButtonsContainer = styled.div<ButtonsProps>`
         css`
           color: #835afd;
         `}
+    }
+
+    &.delete-button:hover {
+      color: #e73f5d;
     }
   }
 `;

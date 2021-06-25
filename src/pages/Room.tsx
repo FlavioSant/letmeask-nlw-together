@@ -2,6 +2,7 @@ import { FormEvent, useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import logoImg from "../assets/images/logo.svg";
+import emptyQuestion from "../assets/images/empty-questions.svg";
 import { FiThumbsUp } from "react-icons/fi";
 
 import { Button } from "../components/Button";
@@ -13,6 +14,7 @@ import { database } from "../services/firebase";
 
 import {
   Container,
+  EmptyQuestion,
   FormFooter,
   Header,
   QuestionList,
@@ -117,30 +119,42 @@ const Room: React.FC = () => {
         </form>
 
         <QuestionList>
-          {questions.map((question) => (
-            <Question
-              key={question.id}
-              author={question.author}
-              content={question.content}
-              hasLiked={!!question.likeId}
-              isAnswered={question.isAnswered}
-              isHighlighted={question.isHighlighted}
-            >
-              {!question.isAnswered && (
-                <button
-                  type="button"
-                  aria-label="Marcar como gostei"
-                  className="like-button"
-                  onClick={() =>
-                    handleLikeQuestion(question.id, question.likeId)
-                  }
-                >
-                  {question.likeCount > 0 && <span>{question.likeCount}</span>}
-                  <FiThumbsUp size={24} />
-                </button>
-              )}
-            </Question>
-          ))}
+          {questions.length > 0 ? (
+            questions.map((question) => (
+              <Question
+                key={question.id}
+                author={question.author}
+                content={question.content}
+                hasLiked={!!question.likeId}
+                isAnswered={question.isAnswered}
+                isHighlighted={question.isHighlighted}
+              >
+                {!question.isAnswered && (
+                  <button
+                    type="button"
+                    aria-label="Marcar como gostei"
+                    className="like-button"
+                    onClick={() =>
+                      handleLikeQuestion(question.id, question.likeId)
+                    }
+                  >
+                    {question.likeCount > 0 && (
+                      <span>{question.likeCount}</span>
+                    )}
+                    <FiThumbsUp size={24} />
+                  </button>
+                )}
+              </Question>
+            ))
+          ) : (
+            <EmptyQuestion>
+              <img src={emptyQuestion} alt="Nenhuma pergunta." />
+              <h2>Nenhuma pergunta por aqui...</h2>
+              <p>
+                Faça o seu login e seja a primeira pessoa a fazer uma pergunta!
+              </p>
+            </EmptyQuestion>
+          )}
         </QuestionList>
       </main>
     </Container>

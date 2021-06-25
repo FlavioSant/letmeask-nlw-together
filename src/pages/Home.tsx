@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { database } from "../services/firebase";
 import { useAuth } from "../hooks/useAuth";
 
-import { SiGoogle } from "react-icons/si";
+import { FcGoogle } from "react-icons/fc";
 
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
@@ -51,9 +51,13 @@ const Home = () => {
         return;
       }
 
-      history.push(`rooms/${roomCode}`);
+      if (roomRef.val().authorId === user?.id) {
+        history.push(`admin/rooms/${roomCode}`);
+      } else {
+        history.push(`rooms/${roomCode}`);
+      }
     },
-    [roomCode, history]
+    [roomCode, history, user?.id]
   );
 
   return (
@@ -70,7 +74,7 @@ const Home = () => {
         <MainContent>
           <img src={logoImg} alt="Letmeask" />
           <CreateRoomButton onClick={handleCreateRoom}>
-            <SiGoogle size={24} color="#fff" />
+            <FcGoogle size={24} color="#fff" />
             Crie sua sala com o google
           </CreateRoomButton>
           <Separator>ou entre em uma sala</Separator>

@@ -14,7 +14,12 @@ export const Container = styled.div`
         min-height: 130px;
         padding: 16px;
         resize: vertical;
+        outline: 0;
         width: 100%;
+
+        &:focus {
+          border: 1px solid #835afd;
+        }
       }
     }
   }
@@ -111,4 +116,28 @@ export const UserInfo = styled.div`
 
 export const QuestionList = styled.div`
   margin-top: 32px;
+`;
+
+export const EmptyQuestion = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 1.5;
+  margin-top: 5rem;
+
+  img {
+    height: 150px;
+    width: 150px;
+  }
+
+  h2 {
+    color: #29292e;
+    margin-top: 1rem;
+  }
+
+  p {
+    color: #737380;
+    margin-top: 1rem;
+  }
 `;

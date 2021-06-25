@@ -17,7 +17,7 @@ const App: React.FC = () => {
           <Route path="/rooms/new" component={NewRoom} />
           <Route path="/rooms/:id" component={Room} />
 
-          <Route path="/admin/rooms/:id" component={AdminRoom} />
+          <Route path="/admin/rooms/:id" exact component={AdminRoom} />
         </Switch>
       </AuthProvider>
     </BrowserRouter>

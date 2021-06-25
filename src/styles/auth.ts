@@ -71,6 +71,11 @@ export const MainContent = styled.div`
       border-radius: 8px;
       border: 1px solid #a8a8a8;
       padding: 0 16px;
+      outline: 0;
+
+      &:focus {
+        border-color: #835afd;
+      }
     }
 
     button {
@@ -93,22 +98,23 @@ export const CreateRoomButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ea4335;
+  background: transparent;
   border-radius: 8px;
-  border: 0;
-  color: #fff;
+  border: 1px solid #a8a8b3;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  color: #29292e;
   cursor: pointer;
   font-weight: 500;
   height: 50px;
   margin-top: 64px;
-  transition: filter 0.2s;
+  transition: border 0.2s;
 
   svg {
     margin-right: 8px;
   }
 
   &:hover {
-    filter: brightness(0.9);
+    border-color: #29292e;
   }
 `;
 

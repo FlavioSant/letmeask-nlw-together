@@ -9,6 +9,12 @@ export const RoomCodeButton = styled.button`
   cursor: pointer;
   display: flex;
 
+  &:hover {
+    div {
+      filter: brightness(0.9);
+    }
+  }
+
   div {
     background: #835afd;
     padding: 0 12px;
@@ -16,6 +22,7 @@ export const RoomCodeButton = styled.button`
     justify-content: center;
     align-items: center;
     height: 100%;
+    transition: filter 0.2s;
   }
 
   span {
