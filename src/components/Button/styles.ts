@@ -15,7 +15,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   cursor: pointer;
   font-weight: 500;
   height: 50px;
-  padding: 0 32px;
+  padding: 0 2rem;
   transition: filter 0.2s;
 
   svg {

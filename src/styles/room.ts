@@ -4,6 +4,7 @@ export const Container = styled.div`
   main {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 1rem;
 
     form {
       textarea {
@@ -12,7 +13,7 @@ export const Container = styled.div`
         border-radius: 8px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
         min-height: 130px;
-        padding: 16px;
+        padding: 1rem;
         resize: vertical;
         outline: 0;
         width: 100%;
@@ -26,7 +27,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: 24px;
+  padding: 1.5rem;
   border-bottom: 1px solid #e2e2e2;
 
   & > div {
@@ -37,39 +38,50 @@ export const Header = styled.header`
     align-items: center;
 
     & > img {
+      width: 95px;
+      height: 45px;
       max-height: 45px;
     }
 
     div {
       display: flex;
-      gap: 16px;
+      gap: 1rem;
 
       button {
-        height: 40px;
+        height: 2.5rem;
+      }
+    }
+
+    @media (max-width: 624px) {
+      display: flex;
+      flex-direction: column;
+
+      > img {
+        margin-bottom: 1rem;
       }
     }
   }
 `;
 
 export const RoomTitle = styled.div`
-  margin: 32px 0 24px;
+  margin: 2rem 0 1.5rem;
   display: flex;
   align-items: center;
 
   h1 {
     font-family: "Poppins", sans-serif;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #29292e;
   }
 
   span {
-    margin-left: 16px;
+    margin-left: 1rem;
     background: #e559f9;
     border-radius: 9999px;
-    padding: 8px 16px;
+    padding: 8px 1rem;
     color: #fff;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `;
 
@@ -77,10 +89,10 @@ export const FormFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 16px;
+  margin-top: 1rem;
 
   & > span {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #737380;
     font-weight: 500;
 
@@ -89,7 +101,7 @@ export const FormFooter = styled.div`
       border: 0;
       color: #835afd;
       text-decoration: underline;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
     }
@@ -107,15 +119,15 @@ export const UserInfo = styled.div`
   }
 
   span {
-    margin-left: 8px;
+    margin-left: 0.5rem;
     color: #29292e;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `;
 
 export const QuestionList = styled.div`
-  margin-top: 32px;
+  margin-top: 2rem;
 `;
 
 export const EmptyQuestion = styled.div`

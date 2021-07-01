@@ -46,7 +46,7 @@ const Home = () => {
         toast.info("Esta sala não existe.", {
           autoClose: 3000,
           style: {
-            background: "#835afd",
+            background: "#ab8fff",
           },
         });
         return;
@@ -56,7 +56,7 @@ const Home = () => {
         toast.info("Esta sala já foi fechada.", {
           autoClose: 3000,
           style: {
-            background: "#835afd",
+            background: "#ab8fff",
           },
         });
         return;

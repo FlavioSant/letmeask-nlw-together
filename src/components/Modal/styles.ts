@@ -42,7 +42,7 @@ export const ModalButtons = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 1rem;
   margin-top: 1.5rem;
 
   button {
@@ -54,7 +54,7 @@ export const ModalButtons = styled.div`
     font-weight: 500;
     height: 50px;
     min-width: 130px;
-    padding: 0 32px;
+    padding: 0 2rem;
     transition: filter 0.2s;
   }
 

@@ -29,9 +29,9 @@ export const RoomCodeButton = styled.button`
     display: block;
     align-self: center;
     flex: 1;
-    padding: 0 16px 0 12px;
+    padding: 0 1rem 0 0.75rem;
     width: 230px;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
   }
 `;
